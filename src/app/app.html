@@ -1,4 +1,48 @@
-<!-- app.component.html -->
-<div class="text-2xl font-bold text-purple-600 p-4 text-center">
-  Tailwind CSS is Working! 🎉
+<div class="min-h-screen bg-gray-100 p-6">
+  <nav class="bg-white shadow p-4 text-center text-xl font-semibold text-blue-600">
+    Angular + Tailwind Demo
+  </nav>
+
+  <div class="grid md:grid-cols-2 gap-6 mt-8">
+    <!-- User card -->
+    <app-user-card></app-user-card>
+
+    <!-- Directives display -->
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-lg font-bold">Directives (Angular 20)</h2>
+
+  <!-- Angular 20 @if -->
+@if (isLoggedIn) {
+  <p class="text-green-600">Welcome back!</p>
+} @else {
+  <p class="text-red-600">Please login</p>
+}
+
+
+      <!-- @for directive -->
+      <ul class="mt-4">
+        @for (item of items; track item) {
+          <li class="text-sm">🔹 {{ item }}</li>
+        }
+      </ul>
+
+      <!-- @switch directive -->
+      @switch (role) {
+        @case ('admin') {
+          <p class="text-blue-600">You are an Admin</p>
+        }
+        @case ('user') {
+          <p class="text-gray-600">You are a User</p>
+        }
+        @default {
+          <p class="text-yellow-600">Unknown role</p>
+        }
+      }
+
+    </div>
+  </div>
+
+  <footer class="text-center mt-10 text-gray-500">
+    © 2025 Angular Tutorial
+  </footer>
 </div>
