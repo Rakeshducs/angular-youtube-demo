@@ -1,5 +1,7 @@
 <div class="min-h-screen bg-gray-100 p-6">
-  <nav class="bg-white shadow p-4 text-center text-xl font-semibold text-blue-600">
+  <nav
+    class="bg-white shadow p-4 text-center text-xl font-semibold text-blue-600"
+  >
     Angular + Tailwind Demo
   </nav>
 
@@ -11,34 +13,28 @@
     <div class="bg-white p-6 rounded shadow">
       <h2 class="text-lg font-bold">Directives (Angular 20)</h2>
 
-  <!-- Angular 20 @if -->
-@if (isLoggedIn) {
-  <p class="text-green-600">Welcome back!</p>
-} @else {
-  <p class="text-red-600">Please login</p>
-}
-
+      <!-- Angular 20 @if -->
+      @if (isLoggedIn) {
+      <p class="text-green-600">Welcome back!</p>
+      } @else {
+      <p class="text-red-600">Please login</p>
+      }
 
       <!-- @for directive -->
       <ul class="mt-4">
         @for (item of items; track item) {
-          <li class="text-sm">🔹 {{ item }}</li>
+        <li class="text-sm">🔹 {{ item }}</li>
         }
       </ul>
 
       <!-- @switch directive -->
-      @switch (role) {
-        @case ('admin') {
-          <p class="text-blue-600">You are an Admin</p>
-        }
-        @case ('user') {
-          <p class="text-gray-600">You are a User</p>
-        }
-        @default {
-          <p class="text-yellow-600">Unknown role</p>
-        }
-      }
-
+      @switch (role) { @case ('admin') {
+      <p class="text-blue-600">You are an Admin</p>
+      } @case ('user') {
+      <p class="text-gray-600">You are a User</p>
+      } @default {
+      <p class="text-yellow-600">Unknown role</p>
+      } }
     </div>
   </div>
 
