@@ -1,0 +1,91 @@
+<!-- Wrapper for all content -->
+<div class="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-2">
+  <!-- @if / @else -->
+  <div class="bg-white shadow rounded p-4">
+    <h2 class="text-xl font-semibold mb-2">if and else</h2>
+    <button
+      (click)="isLoggedIn = !isLoggedIn"
+      class="px-4 py-2 bg-blue-600 text-white rounded mb-4"
+    >
+      Toggle Login State
+    </button>
+
+    @if (isLoggedIn) {
+    <p class="text-green-600">Welcome back, user!</p>
+    } @else {
+    <p class="text-red-600">Please log in to continue.</p>
+    }
+  </div>
+
+  <!-- @for -->
+  <div class="bg-white shadow rounded p-4">
+    <h2 class="text-xl font-semibold mb-2">for Loop</h2>
+    <ul class="list-disc list-inside">
+      @for (item of fruits; track item) {
+      <li class="text-gray-700">{{ item }}</li>
+      }
+    </ul>
+  </div>
+
+  <!-- @switch -->
+  <div class="bg-white shadow rounded p-4">
+    <h2 class="text-xl font-semibold mb-2">switch Example</h2>
+    <p class="mb-2">
+      Current status: <strong>{{ status }}</strong>
+    </p>
+
+    @switch (status) { @case ('active') {
+    <p class="text-green-600">Status is Active ✅</p>
+    } @case ('pending') {
+    <p class="text-yellow-600">Status is Pending ⏳</p>
+    } @default {
+    <p class="text-red-600">Status is Unknown ❌</p>
+    } }
+  </div>
+
+  <!-- @class -->
+  <div class="bg-white shadow rounded p-4">
+    <h2 class="text-xl font-semibold mb-2">class Directive</h2>
+    <button
+      (click)="toggleStatus()"
+      class="px-4 py-2 bg-gray-800 text-white rounded mb-2"
+    >
+      Toggle Success/Error
+    </button>
+    <p
+      [ngClass]="isSuccess ? 'text-green-600 font-bold' : 'text-red-600 italic'"
+    >
+      This is a {{ isSuccess ? "Success" : "Failure" }} message.
+    </p>
+  </div>
+
+  <!-- @style -->
+  <div class="bg-white shadow rounded p-4">
+    <h2 class="text-xl font-semibold mb-2">style Directive</h2>
+    <button
+      (click)="increaseFont()"
+      class="px-4 py-2 bg-purple-600 text-white rounded mb-2"
+    >
+      Increase Font Size
+    </button>
+    <p [ngStyle]="{ 'font-size.px': fontSize }" class="text-purple-700">
+      This text uses dynamic font size: {{ fontSize }}px
+    </p>
+  </div>
+  <!-- ngModel Two-Way Binding -->
+  <div class="bg-white shadow rounded p-4">
+    <h2 class="text-xl font-semibold mb-2">ngModel Binding</h2>
+
+    <label class="block mb-2 text-sm font-medium text-gray-700"
+      >Enter your name:</label
+    >
+    <input
+      type="text"
+      [(ngModel)]="userName"
+      class="border border-gray-300 rounded px-3 py-2 w-full mb-4"
+      placeholder="Type your name..."
+    />
+
+    <p class="text-blue-600 text-lg font-semibold">Hello, {{ userName }}!</p>
+  </div>
+</div>
