@@ -2,3 +2,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-custom-image {
+  background-image: url("assets/images/bg-image.jpg"); /* no leading slash */
+  background-size: cover;
+  background-position: center;
+}
