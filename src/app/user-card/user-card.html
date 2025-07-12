@@ -1,0 +1,12 @@
+<div class="p-4 border rounded shadow">
+    <h2 class="text-xl font-bold text-blue-600">{{ userName }}</h2>
+    <p>Age: {{ userAge }}</p>
+  
+    <button (click)="updateName()" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded">
+      Update Name
+    </button>
+  </div>
+  <h3 class="font-semibold text-lg">{{ userData?.name }}</h3>
+<button (click)="sendMessage()" class="mt-2 text-sm text-blue-500 underline">Send Message</button>
+
+  
