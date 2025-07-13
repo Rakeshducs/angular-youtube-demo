@@ -1,0 +1,49 @@
+<div
+  class="p-6 rounded-xl bg-gray-100 text-center shadow-xl max-w-sm mx-auto mt-10"
+>
+  <h2 class="text-xl font-bold mb-4">🚀 Angular Signal Demo</h2>
+
+  <!-- Count -->
+  <p class="text-lg mb-2">Count: {{ count() }}</p>
+  <p class="text-gray-600 mb-4">Double Count (computed): {{ doubleCount() }}</p>
+
+  <button
+    (click)="increment()"
+    class="px-4 py-2 bg-green-500 text-white rounded mr-2"
+  >
+    ➕ Increment
+  </button>
+  <button
+    (click)="decrement()"
+    class="px-4 py-2 bg-red-500 text-white rounded mr-2"
+  >
+    ➖ Decrement
+  </button>
+  <button (click)="reset()" class="px-4 py-2 bg-gray-500 text-white rounded">
+    🔁 Reset
+  </button>
+
+  <!-- Divider -->
+  <hr class="my-4" />
+
+  <!-- Name signal display -->
+  <p class="text-sm text-gray-700 mb-2">
+    User Name: <strong>{{ name() }}</strong>
+  </p>
+
+  <!-- Toggle name button -->
+  <button
+    (click)="toggleName()"
+    class="px-4 py-2 bg-purple-500 text-white rounded mr-2"
+  >
+    🔄 Toggle Name
+  </button>
+
+  <!-- Log untracked values -->
+  <button
+    (click)="logUntracked()"
+    class="px-4 py-2 bg-blue-500 text-white rounded"
+  >
+    🔍 Log Untracked Values
+  </button>
+</div>
