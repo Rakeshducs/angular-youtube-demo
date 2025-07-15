@@ -25,7 +25,27 @@ export class SignalDemo {
   // Linked signals for teaching concept
   firstName = signal<string>('Ada');
   lastName = signal<string>('Lovelace');
-  fullName = linkedSignal(() => `${this.firstName()} ${this.lastName()}`);
+  // Advanced linkedSignal for teaching
+  // - source: watches both firstName and lastName
+  // - computation: updates fullName unless user has overridden it
+  // - equal: only updates if the string actually changes
+  fullName = linkedSignal<[string, string], string>({
+    source: computed(() => [this.firstName(), this.lastName()]),
+    computation: ([first, last], previous) => {
+      const computedName = `${first} ${last}`;
+      // If the computed name changed, reset to computedName
+      if (
+        !previous ||
+        previous.source?.[0] !== first ||
+        previous.source?.[1] !== last
+      ) {
+        return computedName;
+      }
+      // Otherwise, preserve the override
+      return previous.value ?? computedName;
+    },
+    equal: (a, b) => a === b,
+  });
 
   // Method to demonstrate linkedSignal is writable
   setFullName = (name: string) => this.fullName.set(name);
