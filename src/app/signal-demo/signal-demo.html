@@ -1,0 +1,149 @@
+<div
+  class="p-6 rounded-xl bg-gray-100 text-center shadow-xl max-w-sm mx-auto mt-10"
+>
+  <h2 class="text-xl font-bold mb-4">🚀 Angular Signal Demo</h2>
+
+  <!-- Count -->
+  <p class="text-lg mb-2">Count: {{ count() }}</p>
+  <p class="text-gray-600 mb-4">Double Count (computed): {{ doubleCount() }}</p>
+
+  <button
+    (click)="increment()"
+    class="px-4 py-2 bg-green-500 text-white rounded mr-2"
+  >
+    ➕ Increment
+  </button>
+  <button
+    (click)="decrement()"
+    class="px-4 py-2 bg-red-500 text-white rounded mr-2"
+  >
+    ➖ Decrement
+  </button>
+  <button (click)="reset()" class="px-4 py-2 bg-gray-500 text-white rounded">
+    🔁 Reset
+  </button>
+
+  <!-- Divider -->
+  <hr class="my-4" />
+
+  <!-- Name signal display -->
+  <p class="text-sm text-gray-700 mb-2">
+    User Name: <strong>{{ name() }}</strong>
+  </p>
+
+  <!-- Toggle name button -->
+  <button
+    (click)="toggleName()"
+    class="px-4 py-2 bg-purple-500 text-white rounded mr-2"
+  >
+    🔄 Toggle Name
+  </button>
+
+  <!-- Log untracked values -->
+  <button
+    (click)="logUntracked()"
+    class="px-4 py-2 bg-blue-500 text-white rounded"
+  >
+    🔍 Log Untracked Values
+  </button>
+</div>
+
+<!-- Linked Signal Demo -->
+<div
+  class="p-6 rounded-xl bg-blue-50 text-center shadow-xl max-w-sm mx-auto mt-8"
+>
+  <h3 class="text-lg font-semibold mb-2">🔗 Linked Signal Demo</h3>
+  <div class="mb-2">
+    <label class="block text-sm font-medium mb-1">First Name:</label>
+    <input
+      #firstNameInput
+      type="text"
+      [value]="firstName()"
+      (change)="setFirstName(firstNameInput.value)"
+      class="border rounded px-2 py-1 w-32 text-center"
+    />
+  </div>
+  <div class="mb-2">
+    <label class="block text-sm font-medium mb-1">Last Name:</label>
+    <input
+      #lastNameInput
+      type="text"
+      [value]="lastName()"
+      (change)="setLastName(lastNameInput.value)"
+      class="border rounded px-2 py-1 w-32 text-center"
+    />
+  </div>
+  <p class="mt-2 text-blue-700">
+    Full Name (linked): <strong>{{ fullName() }}</strong>
+  </p>
+  <button
+    (click)="setFullName('Override Name')"
+    class="px-3 py-1 bg-blue-500 text-white rounded text-sm mt-2"
+  >
+    🔗 Override Full Name
+  </button>
+  <p class="text-xs text-gray-500 mt-1">
+    linkedSignal is writable - click to override the computation<br />
+    <span class="block mt-1 text-blue-800"
+      >Advanced: This linkedSignal uses <b>source</b>, <b>computation</b>, and
+      <b>equal</b>.<br />
+      - <b>source</b>: watches first and last name<br />
+      - <b>computation</b>: preserves override unless names change<br />
+      - <b>equal</b>: only updates if the string actually changes</span
+    >
+  </p>
+</div>
+
+<!-- Resource Demo -->
+<div
+  class="p-6 rounded-xl bg-green-50 text-center shadow-xl max-w-sm mx-auto mt-8"
+>
+  <h3 class="text-lg font-semibold mb-2">🌐 Resource Demo</h3>
+  <div class="mb-2">
+    <label class="block text-sm font-medium mb-1">User ID:</label>
+    <input
+      #userIdInput
+      type="number"
+      [value]="userId()"
+      (change)="setUserId(userIdInput.valueAsNumber)"
+      class="border rounded px-2 py-1 w-20 text-center"
+      min="1"
+    />
+  </div>
+  <p class="text-xs text-gray-500 mb-2">Current User ID: {{ userId() }}</p>
+  <p class="text-xs text-gray-500 mb-2">
+    Status: {{ userResource.status() }} | Loading: {{ isLoading() }} | Error:
+    {{ userResource.error() ? "Yes" : "No" }}
+  </p>
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+  <div class="mb-2">
+    <span class="text-blue-600 font-medium">⏳ Loading user...</span>
+  </div>
+  }
+
+  <!-- User Name Display -->
+  @if (!isLoading() && !userResource.error()) {
+  <div class="mb-2">
+    <p class="text-green-700 font-medium">
+      👤 User Name: <strong>{{ userName() }}</strong>
+    </p>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (userResource.error()) {
+  <div class="text-red-600 mt-2">
+    ❌ Error: {{ userResource.error()?.message }}
+  </div>
+  }
+
+  <!-- Test invalid ID -->
+  <button
+    (click)="setUserId(-1)"
+    class="px-3 py-1 bg-red-500 text-white rounded text-sm mt-2"
+  >
+    🧪 Test Error (ID: -1)
+  </button>
+</div>
