@@ -3,16 +3,42 @@
   <nav
     class="bg-white shadow p-4 text-center text-xl font-semibold text-blue-600"
   >
-    Angular Directive Demo
+    Angular Signal Input/Output/Model Demo
   </nav>
 
   <!-- Main Content Area -->
   <main class="flex-grow flex justify-center items-center p-6">
     <div
-      class="bg-white bg-opacity-80 rounded-lg shadow-lg p-6 w-full max-w-4xl"
+      class="bg-white bg-opacity-80 rounded-lg shadow-lg p-6 w-full max-w-6xl"
     >
-      <!-- <app-directive-demo></app-directive-demo> -->
+      <!-- Navigation Tabs -->
+      <div class="mb-6">
+        <div class="flex space-x-4 border-b border-gray-200">
+          <button
+            class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent transition-colors"
+            (click)="activeTab.set('signals')"
+            [class.border-blue-500]="activeTab() === 'signals'"
+            [class.text-blue-600]="activeTab() === 'signals'"
+          >
+            Signal Demo
+          </button>
+          <button
+            class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent transition-colors"
+            (click)="activeTab.set('parent-child')"
+            [class.border-blue-500]="activeTab() === 'parent-child'"
+            [class.text-blue-600]="activeTab() === 'parent-child'"
+          >
+            Parent-Child Demo
+          </button>
+        </div>
+      </div>
+
+      <!-- Content based on active tab -->
+      @switch (activeTab()) { @case ('signals') {
       <app-signal-demo></app-signal-demo>
+      } @case ('parent-child') {
+      <app-signal-demo-parent></app-signal-demo-parent>
+      } }
     </div>
   </main>
 
@@ -20,6 +46,6 @@
   <footer
     class="text-center p-4 text-gray-500 bg-white bg-opacity-70 rounded-lg m-4 shadow"
   >
-    © 2025 Angular Tutorial
+    © 2025 Angular Tutorial - Signal Input/Output/Model Demo
   </footer>
 </div>

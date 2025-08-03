@@ -1,12 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { UserCard } from './user-card/user-card';
-import { DirectiveDemoComponent } from './directive-demo/directive-demo';
+import { CommonModule } from '@angular/common';
 import { SignalDemo } from './signal-demo/signal-demo';
+import { SignalDemoParent } from './signal-input-output-demo/signal-demo-parent';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, UserCard, DirectiveDemoComponent, SignalDemo],
+  imports: [CommonModule, SignalDemo, SignalDemoParent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -16,6 +15,9 @@ export class App {
   isLoggedIn = true;
   items = ['Angular', 'Tailwind', 'YouTube'];
   role = 'admin';
+
+  // Active tab signal for navigation
+  activeTab = signal('signals');
 
   handleNotification(msg: string) {
     this.message = msg;
