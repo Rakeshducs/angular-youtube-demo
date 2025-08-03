@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignalDemo } from './signal-demo/signal-demo';
-import { SignalDemoParent } from './signal-input-output-demo/signal-demo-parent';
+import { SignalDemoParent } from './signal-demo-parent/signal-demo-parent';
 
 @Component({
   selector: 'app-root',

@@ -1,163 +1,96 @@
 <div class="max-w-6xl mx-auto p-6 font-sans">
   <!-- Header Section -->
   <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
-    <h2 class="text-3xl font-bold text-gray-800 text-center mb-4">
-      {{ displayTitle() }}
-    </h2>
+    <h2 class="text-3xl font-bold text-gray-800 text-center mb-4">{{ displayTitle() }}</h2>
     <p class="text-center text-lg text-gray-600">Status: {{ status() }}</p>
   </div>
 
   <!-- Input Signals Demo -->
   <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
-    <h3
-      class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200"
-    >
-      📥 Input Signals
-    </h3>
-
+    <h3 class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200">📥 Input Signals</h3>
+    
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <label class="block font-semibold text-gray-700 mb-2 text-sm"
-          >Title (with default):</label
-        >
-        <span
-          class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300"
-          >{{ title() }}</span
-        >
+        <label class="block font-semibold text-gray-700 mb-2 text-sm">Title (with default):</label>
+        <span class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300">{{ title() }}</span>
       </div>
-
+      
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <label class="block font-semibold text-gray-700 mb-2 text-sm"
-          >User Name (required):</label
-        >
-        <span
-          class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300"
-          >{{ userName() }}</span
-        >
+        <label class="block font-semibold text-gray-700 mb-2 text-sm">User Name (required):</label>
+        <span class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300">{{ userName() }}</span>
       </div>
-
+      
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <label class="block font-semibold text-gray-700 mb-2 text-sm"
-          >Count (with transform):</label
-        >
-        <span
-          class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300"
-          >{{ count() }}</span
-        >
+        <label class="block font-semibold text-gray-700 mb-2 text-sm">Count (with transform):</label>
+        <span class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300">{{ count() }}</span>
       </div>
-
+      
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <label class="block font-semibold text-gray-700 mb-2 text-sm"
-          >Slider Value (with alias):</label
-        >
-        <span
-          class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300"
-          >{{ sliderValue() }}</span
-        >
+        <label class="block font-semibold text-gray-700 mb-2 text-sm">Slider Value (with alias):</label>
+        <span class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300">{{ sliderValue() }}</span>
       </div>
-
+      
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <label class="block font-semibold text-gray-700 mb-2 text-sm"
-          >Enabled (boolean transform):</label
-        >
-        <span
-          class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300"
-          >{{ isEnabled() ? "Yes" : "No" }}</span
-        >
+        <label class="block font-semibold text-gray-700 mb-2 text-sm">Enabled (boolean transform):</label>
+        <span class="block text-lg text-green-600 font-medium bg-green-100 px-3 py-2 rounded border border-green-300">{{ isEnabled() ? 'Yes' : 'No' }}</span>
       </div>
     </div>
   </div>
 
   <!-- Model Signals Demo -->
   <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
-    <h3
-      class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200"
-    >
-      🔄 Model Signals (Two-way Binding)
-    </h3>
-
+    <h3 class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200">🔄 Model Signals (Two-way Binding)</h3>
+    
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="bg-blue-50 p-5 rounded-lg border border-blue-200">
-        <label class="block font-semibold text-blue-800 mb-3"
-          >Model Value:</label
-        >
-        <span
-          class="block text-lg text-blue-700 font-medium bg-blue-100 px-3 py-2 rounded border border-blue-300 mb-3"
-          >{{ modelDisplay() }}</span
-        >
-        <button
-          class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors"
-          (click)="updateModel()"
-        >
+        <label class="block font-semibold text-blue-800 mb-3">Model Value:</label>
+        <span class="block text-lg text-blue-700 font-medium bg-blue-100 px-3 py-2 rounded border border-blue-300 mb-3">{{ modelDisplay() }}</span>
+        <button class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition-colors" (click)="updateModel()">
           +10
         </button>
       </div>
-
+      
       <div class="bg-blue-50 p-5 rounded-lg border border-blue-200">
-        <label class="block font-semibold text-blue-800 mb-3"
-          >Required Model:</label
-        >
-        <input
-          type="text"
-          [value]="requiredModel()"
+        <label class="block font-semibold text-blue-800 mb-3">Required Model:</label>
+        <input 
+          type="text" 
+          [value]="requiredModel()" 
           (input)="updateRequiredModel($any($event.target).value)"
           placeholder="Enter text..."
           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-3"
         />
-        <span
-          class="block text-lg text-blue-700 font-medium bg-blue-100 px-3 py-2 rounded border border-blue-300"
-          >{{ requiredModel() }}</span
-        >
+        <span class="block text-lg text-blue-700 font-medium bg-blue-100 px-3 py-2 rounded border border-blue-300">{{ requiredModel() }}</span>
       </div>
-
+      
       <div class="bg-blue-50 p-5 rounded-lg border border-blue-200">
-        <label class="block font-semibold text-blue-800 mb-3"
-          >Slider Model:</label
-        >
-        <input
-          type="range"
-          [value]="sliderModel()"
+        <label class="block font-semibold text-blue-800 mb-3">Slider Model:</label>
+        <input 
+          type="range" 
+          [value]="sliderModel()" 
           (input)="updateSlider($any($event.target).value)"
-          min="0"
-          max="100"
+          min="0" 
+          max="100" 
           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider mb-3"
         />
-        <span
-          class="block text-lg text-blue-700 font-medium bg-blue-100 px-3 py-2 rounded border border-blue-300"
-          >{{ sliderModel() }}</span
-        >
+        <span class="block text-lg text-blue-700 font-medium bg-blue-100 px-3 py-2 rounded border border-blue-300">{{ sliderModel() }}</span>
       </div>
     </div>
   </div>
 
   <!-- Output Signals Demo -->
   <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
-    <h3
-      class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200"
-    >
-      📤 Output Signals
-    </h3>
-
+    <h3 class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200">📤 Output Signals</h3>
+    
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div
-        class="bg-yellow-50 p-5 rounded-lg border border-yellow-200 text-center"
-      >
-        <button
-          class="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition-colors mb-3"
-          (click)="triggerValueChange()"
-        >
+      <div class="bg-yellow-50 p-5 rounded-lg border border-yellow-200 text-center">
+        <button class="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition-colors mb-3" (click)="triggerValueChange()">
           Trigger Value Change
         </button>
         <p class="text-sm text-yellow-800">Emits current count + 1</p>
       </div>
-
-      <div
-        class="bg-yellow-50 p-5 rounded-lg border border-yellow-200 text-center"
-      >
-        <button
-          class="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition-colors mb-3"
-          (click)="triggerUserAction('button_clicked')"
-        >
+      
+      <div class="bg-yellow-50 p-5 rounded-lg border border-yellow-200 text-center">
+        <button class="px-6 py-3 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition-colors mb-3" (click)="triggerUserAction('button_clicked')">
           Trigger User Action
         </button>
         <p class="text-sm text-yellow-800">Emits action with timestamp</p>
@@ -167,24 +100,18 @@
 
   <!-- Interactive Demo -->
   <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
-    <h3
-      class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200"
-    >
-      🎮 Interactive Demo
-    </h3>
-
+    <h3 class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200">🎮 Interactive Demo</h3>
+    
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
-        <h4 class="text-lg font-semibold text-gray-700 mb-4">
-          Custom Slider Component
-        </h4>
+        <h4 class="text-lg font-semibold text-gray-700 mb-4">Custom Slider Component</h4>
         <div class="space-y-3">
-          <input
-            type="range"
-            [value]="sliderValue()"
+          <input 
+            type="range" 
+            [value]="sliderValue()" 
             (input)="updateSlider($any($event.target).value)"
-            min="0"
-            max="100"
+            min="0" 
+            max="100" 
             class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
           />
           <div class="flex justify-between text-sm text-gray-600">
@@ -194,19 +121,15 @@
           </div>
         </div>
       </div>
-
+      
       <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
         <h4 class="text-lg font-semibold text-gray-700 mb-4">Form Controls</h4>
         <div class="space-y-3">
           <label class="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              [checked]="isEnabled()"
-              (change)="
-                updateRequiredModel(
-                  $any($event.target).checked ? 'enabled' : 'disabled'
-                )
-              "
+            <input 
+              type="checkbox" 
+              [checked]="isEnabled()" 
+              (change)="updateRequiredModel($any($event.target).checked ? 'enabled' : 'disabled')"
               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
             />
             <span class="font-medium text-gray-700">Enable Component</span>
@@ -218,19 +141,11 @@
 
   <!-- Signal Values Display -->
   <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
-    <h3
-      class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200"
-    >
-      📊 Current Signal Values
-    </h3>
-
+    <h3 class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200">📊 Current Signal Values</h3>
+    
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <h4
-          class="text-lg font-semibold text-gray-700 mb-3 pb-2 border-b border-gray-200"
-        >
-          Inputs
-        </h4>
+        <h4 class="text-lg font-semibold text-gray-700 mb-3 pb-2 border-b border-gray-200">Inputs</h4>
         <ul class="space-y-2">
           <li class="flex justify-between items-center">
             <strong class="text-gray-600">Title:</strong>
@@ -254,13 +169,9 @@
           </li>
         </ul>
       </div>
-
+      
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <h4
-          class="text-lg font-semibold text-gray-700 mb-3 pb-2 border-b border-gray-200"
-        >
-          Models
-        </h4>
+        <h4 class="text-lg font-semibold text-gray-700 mb-3 pb-2 border-b border-gray-200">Models</h4>
         <ul class="space-y-2">
           <li class="flex justify-between items-center">
             <strong class="text-gray-600">Model Value:</strong>
@@ -276,25 +187,17 @@
           </li>
         </ul>
       </div>
-
+      
       <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <h4
-          class="text-lg font-semibold text-gray-700 mb-3 pb-2 border-b border-gray-200"
-        >
-          Computed
-        </h4>
+        <h4 class="text-lg font-semibold text-gray-700 mb-3 pb-2 border-b border-gray-200">Computed</h4>
         <ul class="space-y-2">
           <li class="flex justify-between items-center">
             <strong class="text-gray-600">Display Title:</strong>
-            <span class="text-purple-600 font-medium truncate max-w-32">{{
-              displayTitle()
-            }}</span>
+            <span class="text-purple-600 font-medium truncate max-w-32">{{ displayTitle() }}</span>
           </li>
           <li class="flex justify-between items-center">
             <strong class="text-gray-600">Model Display:</strong>
-            <span class="text-purple-600 font-medium truncate max-w-32">{{
-              modelDisplay()
-            }}</span>
+            <span class="text-purple-600 font-medium truncate max-w-32">{{ modelDisplay() }}</span>
           </li>
           <li class="flex justify-between items-center">
             <strong class="text-gray-600">Status:</strong>
@@ -304,4 +207,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> 
