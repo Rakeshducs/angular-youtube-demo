@@ -1,166 +1,147 @@
-<div class="max-w-7xl mx-auto p-5 font-sans">
-  <h1
-    class="text-center text-4xl font-bold text-gray-800 mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-  >
-    🎯 Signal Input/Output/Model Demo
+<div class="max-w-6xl mx-auto p-6 font-sans">
+  <h1 class="text-center text-4xl font-bold text-gray-800 mb-8">
+    Angular Signal Input/Output Demo
   </h1>
 
-  <!-- Parent State Management -->
+  <!-- Parent Controls -->
   <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
     <h2
       class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200"
     >
-      📊 Parent Component State
+      📊 Parent Controls (Inputs to Child)
     </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="flex flex-col gap-2">
-        <label class="font-semibold text-gray-700 text-sm">Parent Title:</label>
+        <label class="font-semibold text-gray-700 text-sm">Title:</label>
         <input
           type="text"
           [value]="parentTitle()"
           (input)="parentTitle.set($any($event.target).value)"
-          class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label class="font-semibold text-gray-700 text-sm">Parent Count:</label>
+        <label class="font-semibold text-gray-700 text-sm">Count:</label>
         <input
           type="number"
           [value]="parentCount()"
           (input)="parentCount.set(+$any($event.target).value)"
-          class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label class="font-semibold text-gray-700 text-sm"
-          >Parent Slider:</label
-        >
+        <label class="font-semibold text-gray-700 text-sm">Slider:</label>
         <input
           type="range"
           [value]="parentSlider()"
-          (input)="parentSlider.set(+$any($event.target).value)"
+          (input)="updateParentSlider(+$any($event.target).value)"
           min="0"
           max="100"
           class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
         />
-        <span
-          class="text-center font-medium text-green-600 bg-green-100 px-2 py-1 rounded text-sm"
-          >{{ parentSlider() }}</span
-        >
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label class="font-semibold text-gray-700 text-sm">Parent Model:</label>
-        <input
-          type="number"
-          [value]="parentModel()"
-          (input)="parentModel.set(+$any($event.target).value)"
-          class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
+        <div class="flex items-center justify-between">
+          <span
+            class="text-center font-medium text-green-600 bg-green-100 px-2 py-1 rounded text-sm"
+          >
+            {{ parentSlider() }}
+          </span>
+          @if (sliderChangedBy() === 'parent') {
+          <span
+            class="text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded animate-pulse"
+          >
+            Changed by Parent
+          </span>
+          } @else if (sliderChangedBy() === 'child') {
+          <span
+            class="text-xs text-purple-600 bg-purple-100 px-2 py-1 rounded animate-pulse"
+          >
+            Changed by Child
+          </span>
+          }
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Child Component with Input/Output/Model Bindings -->
+  <!-- Child Component -->
   <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
     <h2
       class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200"
     >
-      🔗 Child Component with Signal Bindings
+      🔗 Child Component
     </h2>
 
     <app-signal-input-output-demo
       [title]="parentTitle()"
-      [userName]="'Demo User'"
       [count]="parentCount()"
-      [value]="parentSlider()"
-      [isEnabled]="true"
-      [(modelValue)]="parentModel"
-      [(requiredModel)]="parentRequiredModel"
-      [(value)]="parentSliderModel"
+      [(value)]="parentSlider"
       (onValueChange)="handleValueChange($event)"
       (onUserAction)="handleUserAction($event)"
+      (sliderChanged)="sliderChangedBy.set('child')"
     ></app-signal-input-output-demo>
   </div>
 
-  <!-- Event Log -->
-  <div class="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-200">
-    <h2
-      class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200"
-    >
-      📝 Event Log
-    </h2>
-    <div
-      class="max-h-80 overflow-y-auto border border-gray-200 rounded-lg p-4 bg-gray-50"
-    >
-      @for (event of eventLog(); track event.timestamp) {
-      <div
-        class="flex items-center gap-3 p-3 mb-2 rounded-lg text-sm border-l-4"
-        [class]="
-          event.type === 'input'
-            ? 'bg-blue-50 border-blue-500'
-            : event.type === 'output'
-            ? 'bg-yellow-50 border-yellow-500'
-            : 'bg-green-50 border-green-500'
-        "
-      >
-        <span class="font-semibold text-gray-500 min-w-20">{{
-          event.timestamp | date : "HH:mm:ss"
-        }}</span>
-        <span class="flex-1 text-gray-700">{{ event.message }}</span>
-        @if (event.value) {
-        <span
-          class="font-semibold text-green-600 bg-green-100 px-2 py-1 rounded text-xs max-w-48 truncate"
-          >{{ event.value }}</span
-        >
-        }
-      </div>
-      }
-    </div>
-    <button
-      class="mt-4 px-4 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors"
-      (click)="clearLog()"
-    >
-      Clear Log
-    </button>
-  </div>
-
-  <!-- Computed Values -->
+  <!-- Child Output Events -->
   <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
     <h2
       class="text-2xl font-semibold text-gray-700 mb-5 pb-2 border-b-2 border-gray-200"
     >
-      🧮 Computed Values
+      📤 Child Output Events
     </h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-        <label class="block font-semibold text-blue-800 mb-2 text-sm"
-          >Combined Title:</label
-        >
-        <span
-          class="block text-lg text-blue-700 font-medium bg-blue-100 px-3 py-2 rounded border border-blue-300"
-          >{{ combinedTitle() }}</span
-        >
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-yellow-50 p-5 rounded-lg border border-yellow-200">
+        <h3 class="text-lg font-semibold text-yellow-800 mb-4">
+          Value Change Event
+        </h3>
+        @if (lastValueChange()) {
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="font-medium text-yellow-700">Value:</span>
+            <span
+              class="text-lg font-bold text-yellow-600 bg-yellow-100 px-3 py-1 rounded"
+            >
+              {{ lastValueChange() }}
+            </span>
+          </div>
+          <p class="text-sm text-yellow-600">
+            Emitted from child's "Trigger Value Change" button
+          </p>
+        </div>
+        } @else {
+        <p class="text-yellow-600 italic">No value change events yet</p>
+        }
       </div>
-      <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-        <label class="block font-semibold text-blue-800 mb-2 text-sm"
-          >Total Value:</label
-        >
-        <span
-          class="block text-lg text-blue-700 font-medium bg-blue-100 px-3 py-2 rounded border border-blue-300"
-          >{{ totalValue() }}</span
-        >
-      </div>
-      <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-        <label class="block font-semibold text-blue-800 mb-2 text-sm"
-          >Status:</label
-        >
-        <span
-          class="block text-lg text-blue-700 font-medium bg-blue-100 px-3 py-2 rounded border border-blue-300"
-          >{{ status() }}</span
-        >
+
+      <div class="bg-yellow-50 p-5 rounded-lg border border-yellow-200">
+        <h3 class="text-lg font-semibold text-yellow-800 mb-4">
+          User Action Event
+        </h3>
+        @if (lastUserAction()) {
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="font-medium text-yellow-700">Action:</span>
+            <span
+              class="text-lg font-bold text-yellow-600 bg-yellow-100 px-3 py-1 rounded"
+            >
+              {{ lastUserAction()?.action }}
+            </span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="font-medium text-yellow-700">Time:</span>
+            <span class="text-sm text-yellow-600">
+              {{ lastUserAction()?.timestamp | date : "HH:mm:ss" }}
+            </span>
+          </div>
+          <p class="text-sm text-yellow-600">
+            Emitted from child's "Trigger User Action" button
+          </p>
+        </div>
+        } @else {
+        <p class="text-yellow-600 italic">No user action events yet</p>
+        }
       </div>
     </div>
   </div>
