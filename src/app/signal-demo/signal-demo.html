@@ -1,149 +1,551 @@
-<div
-  class="p-6 rounded-xl bg-gray-100 text-center shadow-xl max-w-sm mx-auto mt-10"
->
-  <h2 class="text-xl font-bold mb-4">🚀 Angular Signal Demo</h2>
+<div class="max-w-6xl mx-auto p-6 font-sans">
+  <h1 class="text-center text-4xl font-bold text-gray-800 mb-8">
+    🎓 Angular Signal Input/Output Tutorial
+  </h1>
 
-  <!-- Count -->
-  <p class="text-lg mb-2">Count: {{ count() }}</p>
-  <p class="text-gray-600 mb-4">Double Count (computed): {{ doubleCount() }}</p>
-
-  <button
-    (click)="increment()"
-    class="px-4 py-2 bg-green-500 text-white rounded mr-2"
+  <!-- Interactive Tutorial Section -->
+  <div
+    class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-lg p-6 mb-8 border-2 border-blue-200"
   >
-    ➕ Increment
-  </button>
-  <button
-    (click)="decrement()"
-    class="px-4 py-2 bg-red-500 text-white rounded mr-2"
-  >
-    ➖ Decrement
-  </button>
-  <button (click)="reset()" class="px-4 py-2 bg-gray-500 text-white rounded">
-    🔁 Reset
-  </button>
-
-  <!-- Divider -->
-  <hr class="my-4" />
-
-  <!-- Name signal display -->
-  <p class="text-sm text-gray-700 mb-2">
-    User Name: <strong>{{ name() }}</strong>
-  </p>
-
-  <!-- Toggle name button -->
-  <button
-    (click)="toggleName()"
-    class="px-4 py-2 bg-purple-500 text-white rounded mr-2"
-  >
-    🔄 Toggle Name
-  </button>
-
-  <!-- Log untracked values -->
-  <button
-    (click)="logUntracked()"
-    class="px-4 py-2 bg-blue-500 text-white rounded"
-  >
-    🔍 Log Untracked Values
-  </button>
-</div>
-
-<!-- Linked Signal Demo -->
-<div
-  class="p-6 rounded-xl bg-blue-50 text-center shadow-xl max-w-sm mx-auto mt-8"
->
-  <h3 class="text-lg font-semibold mb-2">🔗 Linked Signal Demo</h3>
-  <div class="mb-2">
-    <label class="block text-sm font-medium mb-1">First Name:</label>
-    <input
-      #firstNameInput
-      type="text"
-      [value]="firstName()"
-      (change)="setFirstName(firstNameInput.value)"
-      class="border rounded px-2 py-1 w-32 text-center"
-    />
-  </div>
-  <div class="mb-2">
-    <label class="block text-sm font-medium mb-1">Last Name:</label>
-    <input
-      #lastNameInput
-      type="text"
-      [value]="lastName()"
-      (change)="setLastName(lastNameInput.value)"
-      class="border rounded px-2 py-1 w-32 text-center"
-    />
-  </div>
-  <p class="mt-2 text-blue-700">
-    Full Name (linked): <strong>{{ fullName() }}</strong>
-  </p>
-  <button
-    (click)="setFullName('Override Name')"
-    class="px-3 py-1 bg-blue-500 text-white rounded text-sm mt-2"
-  >
-    🔗 Override Full Name
-  </button>
-  <p class="text-xs text-gray-500 mt-1">
-    linkedSignal is writable - click to override the computation<br />
-    <span class="block mt-1 text-blue-800"
-      >Advanced: This linkedSignal uses <b>source</b>, <b>computation</b>, and
-      <b>equal</b>.<br />
-      - <b>source</b>: watches first and last name<br />
-      - <b>computation</b>: preserves override unless names change<br />
-      - <b>equal</b>: only updates if the string actually changes</span
-    >
-  </p>
-</div>
-
-<!-- Resource Demo -->
-<div
-  class="p-6 rounded-xl bg-green-50 text-center shadow-xl max-w-sm mx-auto mt-8"
->
-  <h3 class="text-lg font-semibold mb-2">🌐 Resource Demo</h3>
-  <div class="mb-2">
-    <label class="block text-sm font-medium mb-1">User ID:</label>
-    <input
-      #userIdInput
-      type="number"
-      [value]="userId()"
-      (change)="setUserId(userIdInput.valueAsNumber)"
-      class="border rounded px-2 py-1 w-20 text-center"
-      min="1"
-    />
-  </div>
-  <p class="text-xs text-gray-500 mb-2">Current User ID: {{ userId() }}</p>
-  <p class="text-xs text-gray-500 mb-2">
-    Status: {{ userResource.status() }} | Loading: {{ isLoading() }} | Error:
-    {{ userResource.error() ? "Yes" : "No" }}
-  </p>
-
-  <!-- Loading State -->
-  @if (isLoading()) {
-  <div class="mb-2">
-    <span class="text-blue-600 font-medium">⏳ Loading user...</span>
-  </div>
-  }
-
-  <!-- User Name Display -->
-  @if (!isLoading() && !userResource.error()) {
-  <div class="mb-2">
-    <p class="text-green-700 font-medium">
-      👤 User Name: <strong>{{ userName() }}</strong>
+    <h2 class="text-2xl font-bold text-blue-800 mb-4">
+      🎯 Interactive Tutorial
+    </h2>
+    <p class="text-gray-600 mb-4">
+      Follow along step by step to understand input/output concepts
     </p>
-  </div>
-  }
 
-  <!-- Error State -->
-  @if (userResource.error()) {
-  <div class="text-red-600 mt-2">
-    ❌ Error: {{ userResource.error()?.message }}
-  </div>
-  }
+    <!-- Tutorial Progress -->
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex space-x-2">
+        @for (step of tutorialSteps; track $index) {
+        <button
+          (click)="goToTutorialStep($index + 1)"
+          [class]="
+            $index + 1 === currentTutorialStep()
+              ? 'bg-blue-500 text-white'
+              : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+          "
+          class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors"
+        >
+          {{ $index + 1 }}
+        </button>
+        }
+      </div>
 
-  <!-- Test invalid ID -->
-  <button
-    (click)="setUserId(-1)"
-    class="px-3 py-1 bg-red-500 text-white rounded text-sm mt-2"
+      <div class="flex space-x-2">
+        <button
+          (click)="prevTutorialStep()"
+          [disabled]="currentTutorialStep() === 1"
+          class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          ← Previous
+        </button>
+        <button
+          (click)="nextTutorialStep()"
+          [disabled]="currentTutorialStep() === tutorialSteps.length"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Next →
+        </button>
+      </div>
+    </div>
+
+    <!-- Current Tutorial Step -->
+    <div class="bg-white p-6 rounded-lg border border-blue-300">
+      <h3 class="text-xl font-semibold text-blue-700 mb-3">
+        Step {{ currentTutorialStep() }}:
+        {{ tutorialSteps[currentTutorialStep() - 1].title }}
+      </h3>
+      <p class="text-gray-700 mb-4">
+        {{ tutorialSteps[currentTutorialStep() - 1].description }}
+      </p>
+      <div class="bg-yellow-50 p-4 rounded border border-yellow-300">
+        <p class="text-yellow-800 font-medium">
+          💡 Try this: {{ tutorialSteps[currentTutorialStep() - 1].action }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Flow Visualization -->
+  <div
+    class="bg-indigo-50 rounded-xl shadow-lg p-6 mb-8 border-2 border-indigo-200"
   >
-    🧪 Test Error (ID: -1)
-  </button>
+    <h2 class="text-2xl font-bold text-indigo-800 mb-4">
+      🔄 Data Flow Visualization
+    </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+      <!-- Parent Component -->
+      <div class="bg-white p-4 rounded-lg border-2 border-blue-300 text-center">
+        <div class="text-4xl mb-2">👨‍💼</div>
+        <h3 class="font-bold text-blue-700 mb-2">Parent Component</h3>
+        <p class="text-sm text-gray-600">Sends data down to children</p>
+        <div class="mt-3 text-blue-500 animate-pulse">📥 Inputs</div>
+      </div>
+
+      <!-- Data Flow Arrows -->
+      <div class="flex flex-col items-center space-y-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl">⬇️</span>
+          <span class="text-sm font-medium text-indigo-700"
+            >Data flows down</span
+          >
+        </div>
+        <div
+          class="w-16 h-1 bg-gradient-to-r from-blue-400 to-green-400 rounded"
+        ></div>
+        <div class="flex items-center space-x-2">
+          <span class="text-2xl">⬆️</span>
+          <span class="text-sm font-medium text-indigo-700"
+            >Events flow up</span
+          >
+        </div>
+      </div>
+
+      <!-- Child Component -->
+      <div
+        class="bg-white p-4 rounded-lg border-2 border-green-300 text-center"
+      >
+        <div class="text-4xl mb-2">👶</div>
+        <h3 class="font-bold text-green-700 mb-2">Child Component</h3>
+        <p class="text-sm text-gray-600">Receives data & sends events</p>
+        <div class="mt-3 text-green-500 animate-pulse">📤 Outputs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Introduction Section -->
+  <div
+    class="bg-blue-50 rounded-xl shadow-lg p-6 mb-8 border-2 border-blue-200"
+  >
+    <h2 class="text-2xl font-bold text-blue-800 mb-4">
+      📚 What are Inputs and Outputs?
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white p-4 rounded-lg border border-blue-300">
+        <h3 class="text-lg font-semibold text-blue-700 mb-2">
+          📥 Inputs (Parent → Child)
+        </h3>
+        <p class="text-gray-700 mb-3">
+          Data flows FROM parent component TO child component
+        </p>
+        <div class="bg-green-100 p-3 rounded border border-green-300">
+          <p class="text-sm text-green-800">
+            <strong>Example:</strong> Parent sends title, count, and user data
+            to child
+          </p>
+        </div>
+        <div class="mt-3 p-2 bg-blue-100 rounded text-xs text-blue-800">
+          <strong>💡 Think of it like:</strong> Passing props to a function
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded-lg border border-blue-300">
+        <h3 class="text-lg font-semibold text-blue-700 mb-2">
+          📤 Outputs (Child → Parent)
+        </h3>
+        <p class="text-gray-700 mb-3">
+          Events flow FROM child component TO parent component
+        </p>
+        <div class="bg-yellow-100 p-3 rounded border border-yellow-300">
+          <p class="text-sm text-yellow-800">
+            <strong>Example:</strong> Child sends button clicks, form
+            submissions, and data changes to parent
+          </p>
+        </div>
+        <div class="mt-3 p-2 bg-yellow-100 rounded text-xs text-yellow-800">
+          <strong>💡 Think of it like:</strong> Returning values from a function
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Basic Signal Demo -->
+  <div class="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">🔢 Basic Signal Demo</h2>
+    <p class="text-gray-600 mb-4">
+      This demonstrates basic signal concepts before we dive into inputs/outputs
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <h3 class="font-semibold text-gray-700 mb-2">Count Signal</h3>
+        <p class="text-2xl font-bold text-green-600 mb-3">{{ count() }}</p>
+        <div class="flex gap-2">
+          <button
+            (click)="increment()"
+            class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+          >
+            ➕ Increment
+          </button>
+          <button
+            (click)="decrement()"
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            ➖ Decrement
+          </button>
+          <button
+            (click)="reset()"
+            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          >
+            🔁 Reset
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded-lg">
+        <h3 class="font-semibold text-gray-700 mb-2">Computed Signal</h3>
+        <p class="text-2xl font-bold text-blue-600 mb-3">
+          Double: {{ doubleCount() }}
+        </p>
+        <p class="text-sm text-gray-600">
+          This automatically updates when count changes
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input/Output Demo Section -->
+  <div class="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">🔄 Input/Output Demo</h2>
+    <p class="text-gray-600 mb-6">
+      Watch how data flows between parent and child components
+    </p>
+
+    <!-- Parent Controls -->
+    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 mb-6">
+      <h3 class="text-xl font-semibold text-blue-800 mb-4">
+        👨‍💼 Parent Component (Sending Inputs)
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block font-semibold text-blue-700 mb-2"
+            >Title Input:</label
+          >
+          <input
+            type="text"
+            [value]="parentTitle()"
+            (input)="parentTitle.set($any($event.target).value)"
+            class="w-full px-3 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter title..."
+          />
+          <div class="mt-1 text-xs text-blue-600">
+            This will flow down to child component
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-blue-700 mb-2"
+            >Count Input:</label
+          >
+          <input
+            type="number"
+            [value]="parentCount()"
+            (input)="parentCount.set(+$any($event.target).value)"
+            class="w-full px-3 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter count..."
+          />
+          <div class="mt-1 text-xs text-blue-600">
+            This will flow down to child component
+          </div>
+        </div>
+        <div>
+          <label class="block font-semibold text-blue-700 mb-2"
+            >Slider Input:</label
+          >
+          <input
+            type="range"
+            [value]="parentSlider()"
+            (input)="updateParentSlider(+$any($event.target).value)"
+            min="0"
+            max="100"
+            class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+          />
+          <div class="flex justify-between items-center mt-2">
+            <span class="text-sm font-medium text-blue-600">{{
+              parentSlider()
+            }}</span>
+            <span class="text-xs text-blue-500 bg-blue-100 px-2 py-1 rounded">
+              {{
+                sliderChangedBy() === "parent"
+                  ? "Changed by Parent"
+                  : "Changed by Child"
+              }}
+            </span>
+          </div>
+          <div class="mt-1 text-xs text-blue-600">
+            Two-way binding with child component
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Flow Indicator -->
+    <div class="flex justify-center mb-4">
+      <div
+        class="bg-gradient-to-r from-blue-400 to-green-400 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse"
+      >
+        ⬇️ Data flowing from Parent to Child ⬇️
+      </div>
+    </div>
+
+    <!-- Child Component -->
+    <div class="bg-green-50 p-6 rounded-lg border border-green-200 mb-6">
+      <h3 class="text-xl font-semibold text-green-800 mb-4">
+        👶 Child Component (Receiving Inputs & Sending Outputs)
+      </h3>
+
+      <app-signal-input-output-demo
+        [title]="parentTitle()"
+        [count]="parentCount()"
+        [(value)]="parentSlider"
+        (onValueChange)="handleValueChange($event)"
+        (onUserAction)="handleUserAction($event)"
+        (sliderChanged)="sliderChangedBy.set('child')"
+      ></app-signal-input-output-demo>
+    </div>
+
+    <!-- Data Flow Indicator -->
+    <div class="flex justify-center mb-4">
+      <div
+        class="bg-gradient-to-r from-green-400 to-yellow-400 text-white px-4 py-2 rounded-full text-sm font-medium animate-pulse"
+      >
+        ⬆️ Events flowing from Child to Parent ⬆️
+      </div>
+    </div>
+
+    <!-- Output Events Display -->
+    <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+      <h3 class="text-xl font-semibold text-yellow-800 mb-4">
+        📤 Child Output Events (Received by Parent)
+      </h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-4 rounded-lg border border-yellow-300">
+          <h4 class="font-semibold text-yellow-700 mb-2">Value Change Event</h4>
+          @if (lastValueChange()) {
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-medium text-yellow-700">New Value:</span>
+              <span
+                class="text-lg font-bold text-yellow-600 bg-yellow-100 px-3 py-1 rounded"
+              >
+                {{ lastValueChange() }}
+              </span>
+            </div>
+            <p class="text-sm text-yellow-600">
+              Triggered by child's "Trigger Value Change" button
+            </p>
+          </div>
+          } @else {
+          <p class="text-yellow-600 italic">No value change events yet</p>
+          }
+        </div>
+
+        <div class="bg-white p-4 rounded-lg border border-yellow-300">
+          <h4 class="font-semibold text-yellow-700 mb-2">User Action Event</h4>
+          @if (lastUserAction()) {
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-medium text-yellow-700">Action:</span>
+              <span
+                class="text-lg font-bold text-yellow-600 bg-yellow-100 px-3 py-1 rounded"
+              >
+                {{ lastUserAction()?.action }}
+              </span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-medium text-yellow-700">Time:</span>
+              <span class="text-sm text-yellow-600">
+                {{ lastUserAction()?.timestamp | date : "HH:mm:ss" }}
+              </span>
+            </div>
+            <p class="text-sm text-yellow-600">
+              Triggered by child's "Trigger User Action" button
+            </p>
+          </div>
+          } @else {
+          <p class="text-yellow-600 italic">No user action events yet</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two-Way Binding Demo -->
+  <div class="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+      🔄 Two-Way Binding Demo
+    </h2>
+    <p class="text-gray-600 mb-4">
+      Demonstrates how data can flow in both directions using model signals
+    </p>
+
+    <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
+      <h3 class="text-xl font-semibold text-purple-800 mb-4">
+        🔄 Bidirectional Data Flow
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-4 rounded-lg border border-purple-300">
+          <h4 class="font-semibold text-purple-700 mb-2">
+            Parent Controls Slider
+          </h4>
+          <input
+            type="range"
+            [value]="parentSlider()"
+            (input)="updateParentSlider(+$any($event.target).value)"
+            min="0"
+            max="100"
+            class="w-full h-2 bg-purple-200 rounded-lg appearance-none cursor-pointer mb-2"
+          />
+          <p class="text-sm text-purple-600">
+            Parent value: {{ parentSlider() }}
+          </p>
+          <div class="mt-2 text-xs text-purple-500">
+            Changes flow down to child automatically
+          </div>
+        </div>
+        <div class="bg-white p-4 rounded-lg border border-purple-300">
+          <h4 class="font-semibold text-purple-700 mb-2">
+            Child Also Controls Slider
+          </h4>
+          <p class="text-sm text-purple-600 mb-2">
+            Child value: {{ parentSlider() }}
+          </p>
+          <p class="text-xs text-purple-500">
+            The child component can also modify this value, and it syncs back to
+            parent!
+          </p>
+          <div class="mt-2 text-xs text-purple-500">
+            Changes flow up to parent automatically
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Code Examples -->
+  <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">💻 Code Examples</h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-gray-900 p-4 rounded-lg">
+        <h3 class="text-lg font-semibold text-green-400 mb-3">
+          Child Component (Input/Output)
+        </h3>
+        <pre
+          class="text-green-300 text-sm overflow-x-auto"
+        ><code>// Input signals (receive from parent)
+title = input('Default Title');
+count = input(0);
+
+// Output signals (send to parent)
+onValueChange = output&lt;number&gt;();
+onUserAction = output&lt;object&gt;();
+
+// Two-way binding
+sliderValue = model(50);
+
+// Emit events
+triggerValueChange() {
+  this.onValueChange.emit(this.count() + 1);
+}</code></pre>
+      </div>
+
+      <div class="bg-gray-900 p-4 rounded-lg">
+        <h3 class="text-lg font-semibold text-blue-400 mb-3">
+          Parent Component (Usage)
+        </h3>
+        <pre
+          class="text-blue-300 text-sm overflow-x-auto"
+        ><code>&lt;!-- Send inputs to child --&gt;
+&lt;app-child
+  [title]="parentTitle()"
+  [count]="parentCount()"
+  [(value)]="parentSlider"
+  (onValueChange)="handleValueChange($event)"
+  (onUserAction)="handleUserAction($event)"
+&gt;&lt;/app-child&gt;
+
+// Handle outputs from child
+handleValueChange(value: number) {
+  console.log('Child sent:', value);
+}</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Flow Log -->
+  <div
+    class="bg-gray-900 rounded-xl shadow-lg p-6 border-2 border-gray-700 mb-8"
+  >
+    <h2 class="text-2xl font-bold text-green-400 mb-4">
+      📊 Real-Time Data Flow Log
+    </h2>
+    <p class="text-gray-400 mb-4">
+      Watch how data flows through the application in real-time
+    </p>
+
+    <div
+      class="bg-black p-4 rounded-lg border border-gray-600 max-h-64 overflow-y-auto"
+    >
+      @if (dataFlowLog().length > 0) { @for (log of dataFlowLog(); track $index)
+      {
+      <div class="text-green-400 text-sm font-mono mb-1">
+        {{ log }}
+      </div>
+      } } @else {
+      <div class="text-gray-500 text-sm font-mono italic">
+        No data flow events yet. Try interacting with the components above!
+      </div>
+      }
+    </div>
+
+    <div class="mt-4 flex justify-between items-center">
+      <div class="text-xs text-gray-400">
+        💡 This log shows every data change, event emission, and component
+        interaction
+      </div>
+      <button
+        (click)="dataFlowLog.set([])"
+        class="px-3 py-1 bg-gray-700 text-gray-300 rounded text-xs hover:bg-gray-600"
+      >
+        Clear Log
+      </button>
+    </div>
+  </div>
+
+  <!-- Learning Summary -->
+  <div
+    class="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl shadow-lg p-6 border-2 border-green-200"
+  >
+    <h2 class="text-2xl font-bold text-green-800 mb-4">🎯 Key Takeaways</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-white p-4 rounded-lg border border-green-300">
+        <h3 class="font-semibold text-green-700 mb-2">📥 Inputs</h3>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>• Parent → Child data flow</li>
+          <li>• Use square brackets [prop]</li>
+          <li>• Child receives as signals</li>
+          <li>• Automatic reactivity</li>
+        </ul>
+      </div>
+      <div class="bg-white p-4 rounded-lg border border-yellow-300">
+        <h3 class="font-semibold text-yellow-700 mb-2">📤 Outputs</h3>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>• Child → Parent events</li>
+          <li>• Use parentheses (event)</li>
+          <li>• Parent handles events</li>
+          <li>• Custom event data</li>
+        </ul>
+      </div>
+      <div class="bg-white p-4 rounded-lg border border-purple-300">
+        <h3 class="font-semibold text-purple-700 mb-2">🔄 Two-Way</h3>
+        <ul class="text-sm text-gray-700 space-y-1">
+          <li>• Bidirectional flow</li>
+          <li>• Use [(model)] syntax</li>
+          <li>• Both components sync</li>
+          <li>• Real-time updates</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
